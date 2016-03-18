@@ -428,6 +428,7 @@ namespace RobotLocalization
     else
     {
       RF_DEBUG("Filter not yet initialized.\n");
+      ROS_INFO("RosFilter::integrateMeasurements() - Filter not yet initialized ");
     }
 
     RF_DEBUG("\n----- /RosFilter::integrateMeasurements ------\n");
@@ -440,6 +441,9 @@ namespace RobotLocalization
      * sources are measuring each absolute pose variable and do not have
      * differential integration enabled.
      */
+
+    ROS_INFO("RosFilter::loadParams() - begin ");
+
     std::map<StateMembers, int> absPoseVarCounts;
     absPoseVarCounts[StateMemberX] = 0;
     absPoseVarCounts[StateMemberY] = 0;
@@ -1365,6 +1369,8 @@ namespace RobotLocalization
 
       filter_.setEstimateErrorCovariance(initialEstimateErrorCovariance);
     }
+
+    ROS_INFO("RosFilter::loadParams() - done ");
   }
 
   template<typename T>
