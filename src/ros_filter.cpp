@@ -428,7 +428,12 @@ namespace RobotLocalization
     else
     {
       RF_DEBUG("Filter not yet initialized.\n");
-      ROS_INFO("RosFilter::integrateMeasurements() - Filter not yet initialized ");
+      static uint32_t oldTime = 0;
+      uint32_t newTime = ros::Time::now().toSec();
+      if (newTime - oldTime > 5) {
+        ROS_INFO("RosFilter::integrateMeasurements() - Filter not yet initialized ");
+        oldTime = newTime;
+      }
     }
 
     RF_DEBUG("\n----- /RosFilter::integrateMeasurements ------\n");
@@ -1631,6 +1636,7 @@ namespace RobotLocalization
 
         // Fire off the position and the transform
         positionPub.publish(filteredPosition);
+        ROS_INFO("RosFilter=>publish odom");
 
         if (printDiagnostics_)
         {
